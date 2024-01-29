@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araç Kiralama Fiyatları</title>
+</head>
+<body>
+    <h1>Araç Kiralama Fiyatları</h1>
+
+    <form method="GET" action="/">
+        <label for="budget">Bütçe:</label>
+        <input type="text" id="budget" name="budget">
+        <input type="submit" value="Filtrele">
+    </form>
+    
+    {% if budget %}
+        <p>Bütçenize göre araçlar listelenmiştir.</p>
+    {% endif %}
+    
+    {% for company, cars in data.items() %}
+        <h2>
+            {{ company }}
+            {% if company.lower() == 'avis' %}
+                <a href="https://www.avis.com.tr/" target="_blank">Ana Sayfa</a>
+            {% elif company.lower() == 'enterprise' %}
+                <a href="https://www.enterprise.com.tr/" target="_blank">Ana Sayfa</a>
+            {% elif company.lower() == 'budget' %}
+                <a href="https://www.budget.com.tr/" target="_blank">Ana Sayfa</a>
+            {% elif company.lower() == 'europcar' %}
+                <a href="https://www.europcar.com.tr/" target="_blank">Ana Sayfa</a>
+            {% elif company.lower() == 'avec' %}
+                <a href="https://www.avecrentacar.com/tr/" target="_blank">Ana Sayfa</a>
+            {% endif %}
+            <a href="{{ cars[0].url }}" target="_blank">Detaylar için tıklayın</a>
+        </h2>
+        <ul>
+            {% for car in cars %}
+                <li>{{ car.model }} - {{ car.fiyat }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
+</html>
